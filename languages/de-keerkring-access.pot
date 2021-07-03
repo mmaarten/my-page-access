@@ -1,0 +1,51 @@
+# Copyright (C) 2021 Maarten Menten
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: De Keerkring - Access 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/my-page-access\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-06-05T08:42:39+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: my-page-access\n"
+
+#. Plugin Name of the plugin
+msgid "De Keerkring - Access"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/mmaarten/de-keerkring/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Limit page access"
+msgstr ""
+
+#. Author of the plugin
+msgid "Maarten Menten"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://profiles.wordpress.org/maartenm/"
+msgstr ""
+
+#: src/App.php:61
+msgid "Access"
+msgstr ""
+
+#: src/App.php:130
+msgid "Set restrictions"
+msgstr ""
+
+#: src/App.php:137
+msgid "Limit access to:"
+msgstr ""
+
+#: src/App.php:204
+msgid "Access allowed for"
+msgstr ""

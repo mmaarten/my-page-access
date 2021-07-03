@@ -1,0 +1,8 @@
+
+.my-page-access-settings {
+  margin-top: 1rem;
+}
+
+.my-page-access-settings:not(.has-restrictions) .my-page-access-roles {
+  display: none;
+}
