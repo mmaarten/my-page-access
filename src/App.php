@@ -14,6 +14,7 @@ class App
         add_action('add_meta_boxes', [__CLASS__, 'addMetaBoxes']);
         add_action('save_post', [__CLASS__, 'savePost']);
         add_action('pre_get_posts', [__CLASS__, 'preGetPosts']);
+        add_action('template_redirect', [__CLASS__, 'templateRedirect']);
 
         add_action('init', function () {
             $post_types = self::getPostTypes();
@@ -119,7 +120,9 @@ class App
             return false;
         }
 
-        $user_id = get_current_user_id();
+        if (! $user_id) {
+            $user_id = get_current_user_id();
+        }
 
         $allowed_roles = self::getAllowedRoles($post_id);
         $user_roles = self::getUserRoles($user_id);
@@ -283,5 +286,26 @@ class App
         }
 
         $query->set('post__not_in', $exclude);
+    }
+
+    public static function templateRedirect()
+    {
+        if (! is_page() && ! is_single()) {
+            return;
+        }
+
+        if (self::canAccessPost(get_the_ID())) {
+            return;
+        }
+
+        $post = get_post();
+
+        $args = apply_filters('my_page_access/wp_die_args', [
+            'title'   => __('Access denied.', 'my-page-access'),
+            'message' => __('Access denied.', 'my-page-access'),
+            'args'    => ['response' => 403],
+        ], $post);
+
+        wp_die($args['message'], $args['title'], $args['args']);
     }
 }
