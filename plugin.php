@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       My Page Access
  * Plugin URI:        https://github.com/mmaarten/de-keerkring/
- * Description:       Limit page access
+ * Description:       Limit page access by user role.
  * Version:           1.0
  * Requires at least: 5.5
  * Requires PHP:      5.6
