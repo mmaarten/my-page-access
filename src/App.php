@@ -300,9 +300,18 @@ class App
 
         $post = get_post();
 
+        $message = sprintf('<h1>%s</h1>', esc_html__('Access denied.', 'my-page-access'));
+
+        if (! is_user_logged_in()) {
+            $message .= sprintf('<p>%s</p>', esc_html__('The access to this page is restricted to specific user roles.', 'my-page-access'));
+            $message .= sprintf('<p><a href="%1$s">%2$s</a></p>', esc_url(wp_login_url()), esc_html__('Login', 'my-page-access'));
+        } else {
+            $message .= sprintf('<p>%s</p>', esc_html__('Your user role is not allowed to access this page.', 'my-page-access'));
+        }
+
         $args = apply_filters('my_page_access/wp_die_args', [
             'title'   => __('Access denied.', 'my-page-access'),
-            'message' => __('Access denied.', 'my-page-access'),
+            'message' => $message,
             'args'    => ['response' => 403],
         ], $post);
 
