@@ -14,6 +14,7 @@ class App
         add_action('add_meta_boxes', [__CLASS__, 'addMetaBoxes']);
         add_action('save_post', [__CLASS__, 'savePost']);
         add_action('pre_get_posts', [__CLASS__, 'preGetPosts']);
+        add_action('wp_list_pages_excludes', [__CLASS__, 'wpListPagesExcludes']);
         add_action('template_redirect', [__CLASS__, 'templateRedirect']);
 
         add_action('init', function () {
@@ -37,7 +38,7 @@ class App
     public static function getPostTypes()
     {
         $post_types = get_post_types(['public' => true]);
-        
+
         return apply_filters('my_page_access/post_types', $post_types);
     }
 
@@ -286,6 +287,35 @@ class App
         }
 
         $query->set('post__not_in', $exclude);
+    }
+
+    public static function wpListPagesExcludes($exclude) {
+
+        remove_action('pre_get_posts', [__CLASS__, 'preGetPosts']);
+
+        $post_ids = get_posts([
+            'post_type'   => self::getPostTypes(),
+            'post_status' => 'publish',
+            'fields'      => 'ids',
+            'numberposts' => 9999,
+            'meta_query'  => [
+                [
+                    'key'     => 'is_access_restricted',
+                    'value'   => true,
+                    'compare' => '=',
+                ],
+            ],
+        ]);
+
+        add_action('pre_get_posts', [__CLASS__, 'preGetPosts']);
+
+        foreach ($post_ids as $post_id) {
+            if (! self::canAccessPost($post_id)) {
+                $exclude[] = $post_id;
+            }
+        }
+
+        return $exclude;
     }
 
     public static function templateRedirect()
